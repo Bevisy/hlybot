@@ -14,7 +14,7 @@ clean:
 install:
 	cp hlyBot $GOPATH/bin/
 
-image:
+image: build
 	docker build -t docker.io/bevisy/hlyBot:latest -f Dockerfile .
 
 push:
