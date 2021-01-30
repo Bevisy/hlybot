@@ -9,7 +9,7 @@ USERNAME = bevisy
 	push \
 	clean_image
 
-build:
+build: clean
 	CGO_ENABLED=0 go build -o ${TARGET}
 
 clean:

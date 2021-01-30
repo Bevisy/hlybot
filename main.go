@@ -18,9 +18,14 @@ func main() {
 
 	flag.Parse()
 
+	if BotToken == "" {
+		log.Fatalln("-token parameter is required.")
+	}
+
 	bot, err := tgbotapi.NewBotAPI(BotToken)
 	if err != nil {
-		log.Panic(err)
+		log.Printf("new bot api failed: %s\n", err)
+		return
 	}
 
 	// debug switch
@@ -33,7 +38,8 @@ func main() {
 
 	updates, err := bot.GetUpdatesChan(u)
 	if err != nil {
-		log.Panic(err)
+		log.Printf("get update failed: %s\n", err)
+		return
 	}
 
 	for update := range updates {
@@ -47,7 +53,8 @@ func main() {
 		msg.ReplyToMessageID = update.Message.MessageID
 
 		if _, err = bot.Send(msg); err != nil {
-			log.Panic(err)
+			log.Fatalf("send msg to bot failed: %s\n", err)
+			return
 		}
 	}
 }
