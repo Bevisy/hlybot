@@ -18,7 +18,7 @@ clean:
 install:
 	cp ${TARGET} $GOPATH/bin/
 
-image: build clean_image
+image: build
 	docker build -t docker.io/${USERNAME}/${TARGET}:latest -f Dockerfile .
 
 push:
