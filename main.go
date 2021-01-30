@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 )
@@ -17,6 +18,11 @@ func main() {
 	flag.BoolVar(&Debug, "debug", false, "debug mode")
 
 	flag.Parse()
+
+	token := os.Getenv("token")
+	if token != "" {
+		BotToken = token
+	}
 
 	if BotToken == "" {
 		log.Fatalln("-token parameter is required.")
