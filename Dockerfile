@@ -1,3 +1,4 @@
 from scratch
 
-ADD hlyBot /
+ADD hlybot /
+CMD ["/hlybot"]
