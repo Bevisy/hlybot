@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hlybot
+  name: hlybot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hlybot
+  template:
+    metadata:
+      labels:
+        app: hlybot
+    spec:
+      containers:
+        - image: docker.io/bevisy/hlybot:latest
+          imagePullPolicy: IfNotPresent
+          name: hlybot-server
+          env:
+            - name: token
+              value: {}
+            - name: https_proxy
+              value: {}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 50Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+      nodeSelector:
+        kubernetes.io/os: linux
