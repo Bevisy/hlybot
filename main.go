@@ -9,10 +9,12 @@ import (
 
 var (
 	BotToken string
+	Debug    bool
 )
 
 func main() {
-	flag.StringVar(&BotToken, "token", "", "telegram bot token.")
+	flag.StringVar(&BotToken, "token", "", "telegram bot token")
+	flag.BoolVar(&Debug, "debug", false, "debug mode")
 
 	flag.Parse()
 
@@ -21,7 +23,8 @@ func main() {
 		log.Panic(err)
 	}
 
-	bot.Debug = true
+	// debug switch
+	bot.Debug = Debug
 
 	log.Printf("Authorized on account %s\n", bot.Self.UserName)
 
