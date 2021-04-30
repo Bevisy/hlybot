@@ -23,6 +23,8 @@ spec:
               value: {}
             - name: https_proxy
               value: {}
+            - name: url
+              value: {}
           resources:
             limits:
               cpu: 100m

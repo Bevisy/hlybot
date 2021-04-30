@@ -1,4 +1,4 @@
-module github.com/bevisy/hlyBot
+module github.com/Bevisy/hlyBot
 
 go 1.15
 

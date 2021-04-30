@@ -10,7 +10,7 @@ USERNAME = bevisy
 	clean_image
 
 build: clean
-	CGO_ENABLED=0 go build -o ${TARGET}
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${TARGET}
 
 clean:
 	rm -f ${TARGET}

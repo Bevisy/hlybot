@@ -8,4 +8,9 @@ Usage of ./hlyBot:
         debug mode
   -token string
         telegram bot token
+  -url string
+          url need to pull
 ```
+## DOC
+token -- bot token  
+url -- justmysocks bwCounter query url
