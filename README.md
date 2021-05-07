@@ -1,16 +1,9 @@
 # hlyBot
-以"上杉绘梨衣"之名
+a telegram bot used to look up specified information and push. 
 
 ## HELP
-```bash
-Usage of ./hlyBot:
-  -debug
-        debug mode
-  -token string
-        telegram bot token
-  -url string
-          url need to pull
+```shell script
+make build
+
+./hlybot -h
 ```
-## DOC
-token -- bot token  
-url -- justmysocks bwCounter query url
