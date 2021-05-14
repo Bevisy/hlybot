@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Bevisy/hlyBot/utils"
-	"github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/bevisy/hlybot/utils"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
 var (
