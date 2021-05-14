@@ -17,6 +17,6 @@
 # Project
 .vscode
 test.env
-./hlybot
+hlybot
 vendor/
 example/
