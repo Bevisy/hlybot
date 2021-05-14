@@ -21,7 +21,3 @@ func Get(url string) (*BwCounter, error) {
 	err = json.Unmarshal(body, &ret)
 	return &ret, err
 }
-
-//func SendM(interval int64) error {
-//	return nil
-//}

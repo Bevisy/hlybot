@@ -1,92 +1,29 @@
+/*
+Copyright © 2021 Binbin Zhang <binbin36520@gamil.com>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package main
 
 import (
-	"flag"
-	"fmt"
-	"log"
-	"os"
-	"strconv"
+	"math/rand"
 	"time"
 
-	"github.com/bevisy/hlybot/utils"
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
-)
-
-var (
-	BotToken string
-	Debug    bool
-	Url      string
-	ID       int64
-	Interval int64
+	"github.com/bevisy/hlybot/cmd"
 )
 
 func main() {
-	flag.StringVar(&BotToken, "token", "", "telegram bot token(default \"\")")
-	flag.BoolVar(&Debug, "debug", false, "debug mode(default false)")
-	flag.StringVar(&Url, "url", "", "url used to query")
-	flag.Int64Var(&ID, "id", 0, "telegram user id")
-	flag.Int64Var(&Interval, "duration", 3600, "information push interval")
+	rand.Seed(time.Now().UnixNano())
 
-	flag.Parse()
-
-	if Url == "" {
-		Url = os.Getenv("url")
-		if Url == "" {
-			log.Fatalln("url param must set.")
-		}
-	}
-
-	if ID == 0 {
-		id, _ := strconv.Atoi(os.Getenv("id"))
-		ID = int64(id)
-		if ID == 0 {
-			log.Fatalln("id param must set.")
-		}
-	}
-
-	if BotToken == "" {
-		token := os.Getenv("token")
-		if token != "" {
-			BotToken = token
-		}
-		if BotToken == "" {
-			log.Fatalln("-token parameter is required.")
-		}
-	}
-
-	bot, err := tgbotapi.NewBotAPI(BotToken)
-	if err != nil {
-		log.Printf("new bot api failed: %s\n", err)
-		return
-	}
-
-	// debug mode
-	bot.Debug = Debug
-	log.Printf("Authorized on account %s\n", bot.Self.UserName)
-
-	var msg tgbotapi.MessageConfig
-	interval := time.NewTicker(time.Duration(Interval) * time.Second)
-	for {
-		select {
-		case <-interval.C:
-			ret, err := utils.Get(Url)
-			if err != nil {
-				log.Printf("query bw counter failed: %s\n", err)
-			}
-			usedPercent := (ret.Used / ret.Used) * 100
-
-			msg = tgbotapi.NewMessage(ID,
-				fmt.Sprintf(""+
-					"Used: %.2f GB\n"+
-					"Limit: %.2f GB\n"+
-					"Percentage: %.2f%%\n"+
-					"Reset Day: %d",
-					ret.Used/1000000000, ret.Limit/1000000000, usedPercent, ret.Reset))
-
-			if _, err = bot.Send(msg); err != nil {
-				log.Fatalf("send msg to bot failed: %s\n", err)
-			}
-		}
-		log.Println("query completed.")
-	}
+	cmd.Execute()
 }

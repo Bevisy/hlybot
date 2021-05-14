@@ -18,12 +18,20 @@ spec:
         - image: docker.io/bevisy/hlybot:latest
           imagePullPolicy: IfNotPresent
           name: hlybot-server
+          args:
+          - server
           env:
-            - name: token
+            - name: HLYBOT_BOTTOKEN
               value: {}
-            - name: https_proxy
+            - name: HLYBOT_DEBUG
               value: {}
-            - name: url
+            - name: HLYBOT_DSTURL
+              value: {}
+            - name: HLYBOT_USERID
+              value: {}
+            - name: HLYBOT_PUSHINTERVAL
+              value: {}
+            - name: HTTPS_PROXY
               value: {}
           resources:
             limits:
